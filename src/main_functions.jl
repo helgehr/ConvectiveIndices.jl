@@ -35,7 +35,7 @@ thunderstorm index for Europe in [1].
 
 [1] Ukkonen and Mäkelä (2019): Evaluation of machine learning classifiers for predicting deep convection
 """
-function calc_CAPE_thetae(ps::Vector{F},tks::Vector{F},qs::Vector{F},zs::Vector{F}; parcel::Integer=1,dp_mix::Real=50,dp_intp::Real=5,FULL::Integer=0) where F<:AbstractFloat
+function calc_CAPE_thetae(ps::AbstractVector{F},tks::AbstractVector{F},qs::AbstractVector{F},zs::AbstractVector{F}; parcel::Integer=1,dp_mix::Real=50,dp_intp::Real=5,FULL::Integer=0) where F<:AbstractFloat
 
 	g = F(9.80665)
 
@@ -190,7 +190,7 @@ calc_dilute_CAPE(ps,tks,qs,zs,parcel_index=30), would use a surface parcel if le
 
 """
 
-function calc_dilute_CAPE(ps::Vector{F},tks::Vector{F},qs::Vector{F},zs::Vector{F}; parcel_index::Integer=0,freezing::Integer=0) where F<:AbstractFloat
+function calc_dilute_CAPE(ps::AbstractVector{F},tks::AbstractVector{F},qs::AbstractVector{F},zs::AbstractVector{F}; parcel_index::Integer=0,freezing::Integer=0) where F<:AbstractFloat
 	# p = pressure [hPa], tk = temp [K], q = spec. hum [kg/kg], z = height [m], s = entropy (J/kg)
 	sp = ps[end]
 	rhs = q_to_rh(tks,ps,qs)
@@ -375,7 +375,7 @@ function calc_dilute_CAPE(ps::Vector{F},tks::Vector{F},qs::Vector{F},zs::Vector{
 end
 
 
-function calc_dilute_dCAPE(ps::Vector{F},tks::Vector{F},qs::Vector{F},zs::Vector{F},adv_tk::Vector{F},adv_q::Vector{F}) where F<:AbstractFloat
+function calc_dilute_dCAPE(ps::AbstractVector{F},tks::AbstractVector{F},qs::AbstractVector{F},zs::AbstractVector{F},adv_tk::AbstractVector{F},adv_q::AbstractVector{F}) where F<:AbstractFloat
 
 	sp = ps[end]
 	rhs = q_to_rh(tks,ps,qs)
@@ -418,7 +418,7 @@ This is an inhibition measure for quantifying how preconditioned the atmosphere 
 Described in Tawfik et al. (2014):
 A process-based framework for quantifying the atmospheric preconditioning of surface-triggered convection
 """
-function calc_BCL(qs::Vector{F},rhs::Vector{F},zs::Vector{F}) where F<:AbstractFloat
+function calc_BCL(qs::AbstractVector{F},rhs::AbstractVector{F},zs::AbstractVector{F}) where F<:AbstractFloat
 
 	#qsats = F(100.0) ./rhs .* qs
 	
