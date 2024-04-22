@@ -13,7 +13,7 @@ function saturation_vapor_pressure_liquid(T::Real)
 	es = exp(temp);
 end
 
-function saturation_vapor_pressure_liquid(T::Vector{R}) where R<:Real
+function saturation_vapor_pressure_liquid(T::AbstractVector{R}) where R<:Real
 
     #if ~(all(123 .< T) && all(T .< 332)) 
 	#	@warn "Temperature out of range [123-332] K."
@@ -75,7 +75,7 @@ function q_to_rh(tk::Real, p::Real, q::Real)
 	RH = 100 * e/saturation_vapor_pressure_liquid(tk); 
 end
 
-function q_to_rh(tk::Vector{F},p::Vector{F},q::Vector{F}) where F<:AbstractFloat
+function q_to_rh(tk::AbstractVector{F},p::AbstractVector{F},q::AbstractVector{F}) where F<:AbstractFloat
 	RH = @. 100 * ((q*p*100f0)/((18.0152f0/28.9644f0) + (1 - 18.0152f0/28.9644f0 )*q))  /saturation_vapor_pressure_liquid(tk);
 end
 
@@ -143,7 +143,7 @@ function (theta, thetae, thetaes, p_lcl, tk_lcl, r) = thermo_rh(tks,ps,rhs)
 thermo_rh generates thermodynamic variables from t(K) p(Pa) rh(%) N-element arrays 
 output [theta, thetae, r, tk_lcl, p_lcl] in K, K, kg/kg, K, hPa; r = water vapour mixing ratio
 """
-function thermo_rh(tk::Vector{F},p::Vector{F},rh::Vector{F}) where F<:AbstractFloat
+function thermo_rh(tk::AbstractVector{F},p::AbstractVector{F},rh::AbstractVector{F}) where F<:AbstractFloat
 
 	# changed rsat denominator from p to p-es (3 may 07)
 	# Realised thetae calculation is incorrect (17 Nov 2009)
