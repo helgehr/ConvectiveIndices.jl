@@ -1,7 +1,7 @@
 """
 numerical integration of y (Vector) with respect to the coordinates specified by x using the trapezoidal rule
 """
-function trapz(x::Vector{R}, y::Vector{R}) where R<:Real
+function trapz(x::AbstractVector{R}, y::AbstractVector{R}) where R<:Real
 
 	len = length(y)
     if (len != length(x))
